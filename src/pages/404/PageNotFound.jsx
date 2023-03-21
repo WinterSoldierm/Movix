@@ -1,10 +1,8 @@
-import React from 'react'
-import './pagenotfound.scss'
+import React from "react";
+import "./pagenotfound.scss";
 
-function PageNotFound() {
-  return (
-    <div>PageNotFound</div>
-  )
-}
+const PageNotFound = () => {
+  return <div>PageNotFound</div>;
+};
 
-export default PageNotFound
+export default PageNotFound;

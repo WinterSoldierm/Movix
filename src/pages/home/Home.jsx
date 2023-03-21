@@ -1,6 +1,12 @@
 import React from "react";
 import "./home.scss";
-function Home() {
-  return <div>Home</div>;
-}
+import HeroBanner from "./herobanner/HeroBanner";
+const Home = () => {
+  return (
+    <div className="homePage">
+      <HeroBanner />
+    </div>
+  );
+};
+
 export default Home;
