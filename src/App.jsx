@@ -19,6 +19,7 @@ function App() {
   console.log(url);
   useEffect(() => {
     fetchApiConfig();
+    genresCall();
   }, []);
 
   const fetchApiConfig = () => {
@@ -33,12 +34,30 @@ function App() {
     });
   };
 
+  const genresCall = async () => {
+    let promises = [];
+    let endPoints = ["tv", "movie"];
+    let allGeneres = {};
+
+    endPoints.forEach((url) => {
+      return promises.push(fetchDataFromApi(`/genre/${url}/list`));
+    });
+
+    const data = await Promise.all(promises);
+
+    data.map(({ genres }) => {
+      return genres.map((item) => (allGeneres[item.id] = item));
+    });
+
+    dispatch(getGenres(allGeneres));
+  };
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:mediaType:id" element={<Details />}></Route>
+        <Route path="/:mediaType/:id" element={<Details />}></Route>
         <Route path="/search/:query" element={<SearchResult />}></Route>
         <Route path="'/explore/:mediaType" element={<Explore />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
