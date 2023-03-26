@@ -8,10 +8,13 @@
     }
 
     .carouselTitle {
+        display: flex;
+        justify-content: flex-start;
         font-size: 24px;
         color: white;
         margin-bottom: 20px;
         font-weight: normal;
+        padding-left: 5px;
     }
 
     .arrow {
@@ -38,7 +41,7 @@
         left: 30px;
     }
 
-    .carouselRightNav {
+    .carouselRighttNav {
         right: 30px;
     }
 
