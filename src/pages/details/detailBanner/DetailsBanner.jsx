@@ -29,7 +29,7 @@ const DetailsBanner = ({ video, crew }) => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
-  const _genres = data?.genres.map((g) => g.id);
+  const _genres = data?.genres?.map((g) => g.id);
 
   const director = crew?.filter((f) => f.job === "Director");
   const writer = crew?.filter(
@@ -67,7 +67,7 @@ const DetailsBanner = ({ video, crew }) => {
                     <div className="subtitle">{data?.tagline}</div>
                     <Genres data={_genres} />
                     <div className="row">
-                      <CircleRating rating={data?.vote_average.toFixed(1)} />
+                      <CircleRating rating={data?.vote_average?.toFixed(1)} />
                       <div
                         className="playbtn"
                         onClick={() => {

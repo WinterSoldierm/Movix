@@ -10,12 +10,12 @@ import dayjs from "dayjs";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import Img from "../lazyLoadImage/Img";
 import PosterFallback from "../../assets/no-poster.png";
-
-import "./Carousel.scss";
 import CircleRating from "../circleRating/CircleRating";
 import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading, endPoint, title }) => {
+import "./Carousel.scss";
+
+const Carousel = ({ data, loading, endpoint, title }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
   const navigate = useNavigate();
@@ -37,15 +37,15 @@ const Carousel = ({ data, loading, endPoint, title }) => {
   const skItem = () => {
     return (
       <div className="skeletonItem">
-        <div className="posterBlock skeleton">
-          <div className="textBlock">
-            <div className="title skeleton"></div>
-            <div className="date skeleton"></div>
-          </div>
+        <div className="posterBlock skeleton"></div>
+        <div className="textBlock">
+          <div className="title skeleton"></div>
+          <div className="date skeleton"></div>
         </div>
       </div>
     );
   };
+
   return (
     <div className="carousel">
       <ContentWrapper>
@@ -55,7 +55,7 @@ const Carousel = ({ data, loading, endPoint, title }) => {
           onClick={() => navigation("left")}
         />
         <BsFillArrowRightCircleFill
-          className="carouselRightNav arrow"
+          className="carouselRighttNav arrow"
           onClick={() => navigation("right")}
         />
         {!loading ? (
@@ -66,11 +66,11 @@ const Carousel = ({ data, loading, endPoint, title }) => {
                 : PosterFallback;
               return (
                 <div
-                  className="carouselItem"
                   key={item.id}
-                  onClick={() => {
-                    navigate(`/${item.media_type || endPoint}/${item.id}`);
-                  }}
+                  className="carouselItem"
+                  onClick={() =>
+                    navigate(`/${item.media_type || endpoint}/${item.id}`)
+                  }
                 >
                   <div className="posterBlock">
                     <Img src={posterUrl} />
@@ -80,7 +80,7 @@ const Carousel = ({ data, loading, endPoint, title }) => {
                   <div className="textBlock">
                     <span className="title">{item.title || item.name}</span>
                     <span className="date">
-                      {dayjs(item.release_Date).format("MMM D, YYYY")}
+                      {dayjs(item?.release_date).format("MMMM D, YYYY")}
                     </span>
                   </div>
                 </div>

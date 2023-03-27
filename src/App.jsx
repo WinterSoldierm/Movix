@@ -16,7 +16,7 @@ import PageNotFound from "./pages/404/PageNotFound";
 function App() {
   const dispatch = useDispatch();
   const { url } = useSelector((state) => state.home);
-  console.log(url);
+  // console.log(url);
   useEffect(() => {
     fetchApiConfig();
     genresCall();
@@ -26,9 +26,9 @@ function App() {
     fetchDataFromApi("/configuration").then((res) => {
       console.log(res);
       const url = {
-        backdrop: res.images.secure_base_url + "original",
-        poster: res.images.secure_base_url + "original",
-        profile: res.images.secure_base_url + "original",
+        backdrop: res?.images.secure_base_url + "original",
+        poster: res?.images.secure_base_url + "original",
+        profile: res?.images.secure_base_url + "original",
       };
       dispatch(getApiConfiguration(url));
     });
@@ -40,13 +40,13 @@ function App() {
     let allGeneres = {};
 
     endPoints.forEach((url) => {
-      return promises.push(fetchDataFromApi(`/genre/${url}/list`));
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
     });
 
     const data = await Promise.all(promises);
-
+    // console.log(data);
     data.map(({ genres }) => {
-      return genres.map((item) => (allGeneres[item.id] = item));
+      return genres?.map((item) => (allGeneres[item?.id] = item));
     });
 
     dispatch(getGenres(allGeneres));
@@ -59,7 +59,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Details />}></Route>
         <Route path="/search/:query" element={<SearchResult />}></Route>
-        <Route path="'/explore/:mediaType" element={<Explore />}></Route>
+        <Route path="/explore/:mediaType" element={<Explore />}></Route>
+        <Route path="/undefined/:id" element={<PageNotFound />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
       <Footer />
